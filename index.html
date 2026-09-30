@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VYBE — Music</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#080808;
+    --card:#121212;
+    --card2:#191919;
+    --text:#fff;
+    --muted:#888;
+    --line:#252525;
+    --accent:#c8ff38;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+    overflow-x:hidden;
+}
+
+button{
+    border:0;
+    background:none;
+    color:inherit;
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:240px;
+    padding:28px 20px;
+    background:#090909;
+    border-right:1px solid var(--line);
+    z-index:20;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:800;
+    letter-spacing:-2px;
+    margin:0 12px 40px;
+}
+
+.logo span{
+    color:var(--accent);
+}
+
+.nav-title{
+    color:#555;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin:25px 12px 10px;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:12px;
+    color:#999;
+    border-radius:12px;
+    transition:.25s;
+    margin-bottom:3px;
+}
+
+.nav a:hover,
+.nav a.active{
+    color:#fff;
+    background:#181818;
+}
+
+.nav a.active{
+    box-shadow:inset 3px 0 var(--accent);
+}
+
+.icon{
+    width:20px;
+    text-align:center;
+}
+
+.profile{
+    position:absolute;
+    bottom:25px;
+    left:20px;
+    right:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px;
+    border:1px solid var(--line);
+    border-radius:14px;
+}
+
+.avatar{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    color:#111;
+    font-weight:800;
+    background:linear-gradient(135deg,#c8ff38,#55c7ff);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:240px;
+    padding:0 42px 140px;
+}
+
+.topbar{
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:15;
+    background:rgba(8,8,8,.8);
+    backdrop-filter:blur(18px);
+}
+
+.search{
+    width:min(470px,50vw);
+    height:45px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#151515;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:0 15px;
+}
+
+.search input{
+    width:100%;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:white;
+    font-size:14px;
+}
+
+.search input::placeholder{
+    color:#666;
+}
+
+.top-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.circle-btn{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    transition:.2s;
+}
+
+.circle-btn:hover{
+    background:#fff;
+    color:#000;
+}
+
+/* HERO */
+
+.hero{
+    min-height:440px;
+    border-radius:28px;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    padding:45px;
+    margin-bottom:45px;
+    background:
+        radial-gradient(circle at 75% 30%,rgba(198,255,56,.4),transparent 25%),
+        radial-gradient(circle at 90% 90%,rgba(100,70,255,.5),transparent 35%),
+        linear-gradient(135deg,#171717,#090909);
+}
+
+.hero:before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    right:100px;
+    top:-100px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#c8ff38,#8d54ff);
+    filter:blur(3px);
+    opacity:.8;
+    transform:rotate(25deg);
+}
+
+.hero:after{
+    content:"";
+    position:absolute;
+    width:270px;
+    height:270px;
+    right:40px;
+    bottom:-110px;
+    border-radius:50%;
+    background:#ff3d8d;
+    filter:blur(80px);
+    opacity:.45;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:650px;
+}
+
+.hero-label{
+    color:var(--accent);
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    font-size:clamp(45px,6vw,86px);
+    line-height:.9;
+    letter-spacing:-5px;
+    margin-bottom:24px;
+}
+
+.hero p{
+    color:#aaa;
+    max-width:500px;
+    line-height:1.6;
+    margin-bottom:28px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+}
+
+.primary{
+    background:var(--accent);
+    color:#080808;
+    padding:14px 24px;
+    border-radius:100px;
+    font-weight:700;
+    transition:.2s;
+}
+
+.primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 35px rgba(198,255,56,.2);
+}
+
+.secondary{
+    padding:14px 22px;
+    border:1px solid #444;
+    border-radius:100px;
+    font-weight:600;
+}
+
+/* SECTIONS */
+
+.section{
+    margin-bottom:48px;
+}
+
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.section-head h2{
+    font-size:25px;
+    letter-spacing:-1px;
+}
+
+.more{
+    color:#777;
+    font-size:13px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:18px;
+}
+
+.card{
+    min-width:0;
+    cursor:pointer;
+}
+
+.cover{
+    aspect-ratio:1;
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+    background:#222;
+    margin-bottom:12px;
+    transition:.35s;
+}
+
+.card:hover .cover{
+    transform:translateY(-7px);
+}
+
+.cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.play-small{
+    position:absolute;
+    right:12px;
+    bottom:12px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#111;
+    display:grid;
+    place-items:center;
+    opacity:0;
+    transform:translateY(8px);
+    transition:.25s;
+    font-size:18px;
+}
+
+.card:hover .play-small{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.card h3{
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    margin-bottom:5px;
+}
+
+.card p{
+    color:#777;
+    font-size:12px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+/* WIDE PLAYLIST */
+
+.playlists{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.playlist{
+    min-height:190px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:22px;
+    position:relative;
+    overflow:hidden;
+    background:#111;
+    transition:.3s;
+}
+
+.playlist:hover{
+    transform:translateY(-5px);
+    border-color:#444;
+}
+
+.playlist h3{
+    font-size:21px;
+    max-width:170px;
+    line-height:1.1;
+}
+
+.playlist p{
+    color:#777;
+    font-size:12px;
+    margin-top:10px;
+}
+
+.playlist-art{
+    position:absolute;
+    right:-30px;
+    bottom:-45px;
+    width:150px;
+    height:150px;
+    border-radius:28px;
+    transform:rotate(18deg);
+}
+
+.art1{background:linear-gradient(135deg,#c8ff38,#ff8a00)}
+.art2{background:linear-gradient(135deg,#6e4cff,#f14cff)}
+.art3{background:linear-gradient(135deg,#00d4ff,#0055ff)}
+
+/* SONG LIST */
+
+.song-list{
+    border-top:1px solid var(--line);
+}
+
+.song{
+    display:grid;
+    grid-template-columns:45px 1fr 100px 40px;
+    align-items:center;
+    gap:14px;
+    padding:12px 8px;
+    border-bottom:1px solid var(--line);
+    transition:.2s;
+}
+
+.song:hover{
+    background:#121212;
+}
+
+.song-number{
+    color:#555;
+    text-align:center;
+}
+
+.song-cover{
+    width:45px;
+    height:45px;
+    border-radius:8px;
+    object-fit:cover;
+}
+
+.song-info{
+    min-width:0;
+}
+
+.song-info strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:4px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.song-info span{
+    color:#777;
+    font-size:12px;
+}
+
+.duration{
+    color:#777;
+    font-size:12px;
+}
+
+.like{
+    color:#666;
+}
+
+.like:hover{
+    color:#fff;
+}
+
+/* PLAYER */
+
+.player{
+    position:fixed;
+    left:240px;
+    right:0;
+    bottom:0;
+    height:82px;
+    background:rgba(16,16,16,.95);
+    backdrop-filter:blur(20px);
+    border-top:1px solid #292929;
+    z-index:30;
+    display:flex;
+    align-items:center;
+    padding:10px 25px;
+    gap:22px;
+}
+
+.now{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:250px;
+    min-width:180px;
+}
+
+.now img{
+    width:56px;
+    height:56px;
+    border-radius:9px;
+    object-fit:cover;
+}
+
+.now-text{
+    min-width:0;
+}
+
+.now-text strong{
+    display:block;
+    font-size:13px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.now-text span{
+    display:block;
+    color:#777;
+    font-size:11px;
+    margin-top:4px;
+}
+
+.controls{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.control{
+    font-size:18px;
+    color:#aaa;
+}
+
+.control:hover{
+    color:white;
+}
+
+.play{
+    width:44px;
+    height:44px;
+    background:#fff;
+    color:#000;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+}
+
+.progress-wrap{
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.progress{
+    height:4px;
+    border-radius:10px;
+    background:#333;
+    flex:1;
+    cursor:pointer;
+    overflow:hidden;
+}
+
+.progress-fill{
+    height:100%;
+    width:28%;
+    background:var(--accent);
+}
+
+.time{
+    color:#777;
+    font-size:10px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+    .cards{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .playlists{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:760px){
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+        padding:0 18px 125px;
+    }
+
+    .topbar{
+        height:70px;
+    }
+
+    .search{
+        width:100%;
+    }
+
+    .top-actions{
+        display:none;
+    }
+
+    .hero{
+        min-height:440px;
+        padding:28px;
+        border-radius:22px;
+    }
+
+    .hero h1{
+        font-size:50px;
+        letter-spacing:-3px;
+    }
+
+    .hero:before{
+        right:-130px;
+        top:-70px;
+    }
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+        gap:14px;
+    }
+
+    .playlists{
+        grid-template-columns:1fr;
+    }
+
+    .song{
+        grid-template-columns:30px 1fr 35px;
+    }
+
+    .duration{
+        display:none;
+    }
+
+    .player{
+        left:0;
+        height:76px;
+        padding:8px 12px;
+        gap:10px;
+    }
+
+    .now{
+        width:145px;
+        min-width:120px;
+    }
+
+    .now img{
+        width:48px;
+        height:48px;
+    }
+
+    .controls{
+        gap:9px;
+    }
+
+    .control:nth-child(1),
+    .control:nth-child(4){
+        display:none;
+    }
+
+    .progress-wrap{
+        display:none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">VYBE<span>.</span></div>
+
+    <div class="nav-title">Library</div>
+
+    <nav class="nav">
+        <a href="#" class="active">
+            <span class="icon">⌂</span>
+            Home
+        </a>
+
+        <a href="#">
+            <span class="icon">◉</span>
+            Discover
+        </a>
+
+        <a href="#">
+            <span class="icon">♫</span>
+            Playlists
+        </a>
+
+        <a href="#">
+            <span class="icon">♡</span>
+            Liked songs
+        </a>
+    </nav>
+
+    <div class="nav-title">Your music</div>
+
+    <nav class="nav">
+        <a href="#">
+            <span class="icon">◴</span>
+            Recently played
+        </a>
+
+        <a href="#">
+            <span class="icon">◫</span>
+            Albums
+        </a>
+
+        <a href="#">
+            <span class="icon">♬</span>
+            Artists
+        </a>
+    </nav>
+
+    <div class="profile">
+        <div class="avatar">Z</div>
+        <div>
+            <strong style="font-size:12px">Your profile</strong>
+            <div style="font-size:10px;color:#777;margin-top:3px">Free account</div>
+        </div>
+    </div>
+
+</aside>
+
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div class="search">
+            <span>⌕</span>
+            <input id="searchInput" type="text" placeholder="Search songs, artists, albums...">
+        </div>
+
+        <div class="top-actions">
+            <button class="circle-btn">☼</button>
+            <button class="circle-btn">♧</button>
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-label">Your daily soundtrack</div>
+
+            <h1>Music<br>for your mood.</h1>
+
+            <p>
+                Discover fresh sounds, new artists and tracks
+                that fit your moment. Your music. Your vibe.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary" onclick="playSong(0)">
+                    ▶ Play now
+                </button>
+
+                <button class="secondary">
+                    Explore
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MADE FOR YOU -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <h2>Made for you</h2>
+            <a class="more" href="#">See all →</a>
+        </div>
+
+        <div class="cards">
+
+            <article class="card" onclick="playSong(0)">
+                <div class="cover">
+                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=85">
+                    <button class="play-small">▶</button>
+                </div>
+                <h3>Night Drive</h3>
+                <p>Electronic · Chill</p>
+            </article>
+
+            <article class="card" onclick="playSong(1)">
+                <div class="cover">
+                    <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=85">
+                    <button class="play-small">▶</button>
+                </div>
+                <h3>Late Night Vibes</h3>
+                <p>R&B · Soul</p>
+            </article>
+
+            <article class="card" onclick="playSong(2)">
+                <div class="cover">
+                    <img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=700&q=85">
+                    <button class="play-small">▶</button>
+                </div>
+                <h3>Energy Boost</h3>
+                <p>Pop · Dance</p>
+            </article>
+
+            <article class="card" onclick="playSong(3)">
+                <div class="cover">
+                    <img src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?auto=format&fit=crop&w=700&q=85">
+                    <button class="play-small">▶</button>
+                </div>
+                <h3>Deep Focus</h3>
+                <p>Ambient · Focus</p>
+            </article>
+
+            <article class="card" onclick="playSong(4)">
+                <div class="cover">
+                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=700&q=85">
+                    <button class="play-small">▶</button>
+                </div>
+                <h3>Festival Mode</h3>
+                <p>House · Dance</p>
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- PLAYLISTS -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <h2>Fresh playlists</h2>
+            <a class="more" href="#">See all →</a>
+        </div>
+
+        <div class="playlists">
+
+            <div class="playlist">
+                <h3>Midnight<br>City</h3>
+                <p>42 tracks · 2h 31m</p>
+                <div class="playlist-art art1"></div>
+            </div>
+
+            <div class="playlist">
+                <h3>After<br>Hours</h3>
+                <p>38 tracks · 2h 09m</p>
+                <div class="playlist-art art2"></div>
+            </div>
+
+            <div class="playlist">
+                <h3>Future<br>Sounds</h3>
+                <p>51 tracks · 3h 12m</p>
+                <div class="playlist-art art3"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- POPULAR -->
+
+    <section class="section">
+
+        <div class="section-head">
+            <h2>Popular right now</h2>
+            <a class="more" href="#">Charts →</a>
+        </div>
+
+        <div class="song-list" id="songList">
+
+            <div class="song">
+                <div class="song-number">01</div>
+
+                <img class="song-cover"
+                src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=200&q=80">
+
+                <div class="song-info">
+                    <strong>Midnight Echo</strong>
+                    <span>Nova Ray</span>
+                </div>
+
+                <div class="duration">3:42</div>
+
+                <button class="like">♡</button>
+            </div>
+
+
+            <div class="song">
+                <div class="song-number">02</div>
+
+                <img class="song-cover"
+                src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=200&q=80">
+
+                <div class="song-info">
+                    <strong>Slow Motion</strong>
+                    <span>Luna Miles</span>
+                </div>
+
+                <div class="duration">4:08</div>
+
+                <button class="like">♡</button>
+            </div>
+
+
+            <div class="song">
+                <div class="song-number">03</div>
+
+                <img class="song-cover"
+                src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=200&q=80">
+
+                <div class="song-info">
+                    <strong>Neon Hearts</strong>
+                    <span>Velvet Club</span>
+                </div>
+
+                <div class="duration">3:21</div>
+
+                <button class="like">♡</button>
+            </div>
+
+
+            <div class="song">
+                <div class="song-number">04</div>
+
+                <img class="song-cover"
+                src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?auto=format&fit=crop&w=200&q=80">
+
+                <div class="song-info">
+                    <strong>Gravity</strong>
+                    <span>Aria Stone</span>
+                </div>
+
+                <div class="duration">3:56</div>
+
+                <button class="like">♡</button>
+            </div>
+
+
+            <div class="song">
+                <div class="song-number">05</div>
+
+                <img class="song-cover"
+                src="https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=200&q=80">
+
+                <div class="song-info">
+                    <strong>Electric Love</strong>
+                    <span>NOIR</span>
+                </div>
+
+                <div class="duration">4:12</div>
+
+                <button class="like">♡</button>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- PLAYER -->
+
+<div class="player">
+
+    <div class="now">
+
+        <img id="playerCover"
+        src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=200&q=80">
+
+        <div class="now-text">
+            <strong id="playerTitle">Midnight Echo</strong>
+            <span id="playerArtist">Nova Ray</span>
+        </div>
+
+    </div>
+
+
+    <div class="controls">
+
+        <button class="control" onclick="previousSong()">↶</button>
+
+        <button class="control" id="playButton" onclick="togglePlay()">▶</button>
+
+        <button class="control" onclick="nextSong()">↷</button>
+
+    </div>
+
+
+    <div class="progress-wrap">
+
+        <span class="time" id="currentTime">0:00</span>
+
+        <div class="progress" onclick="changeProgress(event)">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <span class="time" id="duration">3:42</span>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const songs = [
+    {
+        title:"Midnight Echo",
+        artist:"Nova Ray",
+        duration:"3:42",
+        cover:"https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+        title:"Slow Motion",
+        artist:"Luna Miles",
+        duration:"4:08",
+        cover:"https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+        title:"Neon Hearts",
+        artist:"Velvet Club",
+        duration:"3:21",
+        cover:"https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+        title:"Gravity",
+        artist:"Aria Stone",
+        duration:"3:56",
+        cover:"https://images.unsplash.com/photo-1524650359799-842906ca1c06?auto=format&fit=crop&w=500&q=80"
+    },
+    {
+        title:"Electric Love",
+        artist:"NOIR",
+        duration:"4:12",
+        cover:"https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=500&q=80"
+    }
+];
+
+let currentSong=0;
+let playing=false;
+let progress=0;
+
+const title=document.getElementById("playerTitle");
+const artist=document.getElementById("playerArtist");
+const cover=document.getElementById("playerCover");
+const duration=document.getElementById("duration");
+const button=document.getElementById("playButton");
+const fill=document.getElementById("progressFill");
+const currentTime=document.getElementById("currentTime");
+
+function playSong(index){
+
+    currentSong=index;
+
+    title.textContent=songs[index].title;
+    artist.textContent=songs[index].artist;
+    cover.src=songs[index].cover;
+    duration.textContent=songs[index].duration;
+
+    playing=true;
+    button.textContent="Ⅱ";
+
+    progress=0;
+    updateProgress();
+}
+
+function togglePlay(){
+
+    playing=!playing;
+
+    button.textContent=playing ? "Ⅱ" : "▶";
+}
+
+function nextSong(){
+
+    currentSong=(currentSong+1)%songs.length;
+
+    playSong(currentSong);
+}
+
+function previousSong(){
+
+    currentSong=(currentSong-1+songs.length)%songs.length;
+
+    playSong(currentSong);
+}
+
+function updateProgress(){
+
+    fill.style.width=progress+"%";
+
+    const total=parseDuration(songs[currentSong].duration);
+    const seconds=Math.floor(total*progress/100);
+
+    const min=Math.floor(seconds/60);
+    const sec=String(seconds%60).padStart(2,"0");
+
+    currentTime.textContent=min+":"+sec;
+}
+
+function parseDuration(value){
+
+    const parts=value.split(":");
+
+    return Number(parts[0])*60+Number(parts[1]);
+}
+
+function changeProgress(event){
+
+    const rect=event.currentTarget.getBoundingClientRect();
+
+    progress=((event.clientX-rect.left)/rect.width)*100;
+
+    updateProgress();
+}
+
+setInterval(()=>{
+
+    if(!playing)return;
+
+    progress+=0.08;
+
+    if(progress>=100){
+
+        progress=0;
+        nextSong();
+
+    }
+
+    updateProgress();
+
+},100);
+
+
+/* SEARCH */
+
+const search=document.getElementById("searchInput");
+
+search.addEventListener("input",()=>{
+
+    const value=search.value.toLowerCase();
+
+    document.querySelectorAll(".song").forEach(song=>{
+
+        const text=song.innerText.toLowerCase();
+
+        song.style.display=text.includes(value) ? "grid" : "none";
+
+    });
+
+});
+
+
+/* LIKE BUTTONS */
+
+document.querySelectorAll(".like").forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+        btn.textContent=btn.textContent==="♡" ? "♥" : "♡";
+
+    });
+
+});
+
+
+/* SONG CLICK */
+
+document.querySelectorAll(".song").forEach((song,index)=>{
+
+    song.addEventListener("dblclick",()=>{
+
+        playSong(index);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
